@@ -29,4 +29,4 @@ jobs:
           role-to-assume: arn:aws:iam::790387652718:role/ng-ui
           aws-region: us-east-2
       - run: |
-          docker run --rm -it amazon/aws-cli s3 cp dist/ng-ui/browser/ s3://ng-ui-790387652718 --recursive
+          docker run --rm -v ./dist/ng-ui/browser/:/output/ amazon/aws-cli s3 cp /output/ s3://ng-ui-790387652718 --recursive
