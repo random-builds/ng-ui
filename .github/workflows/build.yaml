@@ -33,6 +33,7 @@ jobs:
           #curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
           #unzip awscliv2.zip
           #sudo ./aws/install
+          aws sts get-caller-identity
           aws s3 cp ./dist/ng-ui/browser/ s3://ng-ui-790387652718 --recursive
           #docker run -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY --rm --entrypoint '' amazon/aws-cli env
           #docker run -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY --rm -v ./dist/ng-ui/browser/:/output/ amazon/aws-cli s3 cp /output/ s3://ng-ui-790387652718 --recursive
