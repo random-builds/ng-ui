@@ -30,4 +30,7 @@ jobs:
           role-to-assume: arn:aws:iam::790387652718:role/ng-ui
           aws-region: us-east-2
       - run: |
-          docker run --rm -e AWS_ACCESS_KEY_ID=${{ steps.creds.outputs.aws-access-key-id }} -e AWS_SECRET_ACCESS_KEY=${{ steps.creds.outputs.aws-secret-access-key }} -v ./dist/ng-ui/browser/:/output/ amazon/aws-cli s3 cp /output/ s3://ng-ui-790387652718 --recursive
+          docker run -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY --rm -v ./dist/ng-ui/browser/:/output/ amazon/aws-cli s3 cp /output/ s3://ng-ui-790387652718 --recursive
+        with:
+          AWS_ACCESS_KEY_ID: ${{ steps.creds.outputs.aws-access-key-id }}
+          AWS_SECRET_ACCESS_KEY: ${{ steps.creds.outputs.aws-secret-access-key }}
