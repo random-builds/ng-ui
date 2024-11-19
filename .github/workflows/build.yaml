@@ -31,4 +31,4 @@ jobs:
           aws-region: us-east-2
       - run: |
           env
-          docker run -v ~/.aws/:/root/.aws/ --rm -v ./dist/ng-ui/browser/:/output/ amazon/aws-cli s3 cp /output/ s3://ng-ui-790387652718 --recursive
+          docker run -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY --rm -v ./dist/ng-ui/browser/:/output/ amazon/aws-cli s3 cp /output/ s3://ng-ui-790387652718 --recursive
