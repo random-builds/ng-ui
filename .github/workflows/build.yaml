@@ -18,7 +18,7 @@ jobs:
           cache: npm
       - run: |
           npm install
-          npm run test
+          npm run test -- --watch false --browsers ChromeHeadless
           npm run build
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
