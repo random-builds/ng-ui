@@ -27,7 +27,7 @@ jobs:
         id: creds
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          role-to-assume: arn:aws:iam::790387652718:role/ng-ui
+          role-to-assume: arn:aws:iam::790387652718:role/ng-ui-dev
           aws-region: us-east-2
       - run: |
           aws sts get-caller-identity
