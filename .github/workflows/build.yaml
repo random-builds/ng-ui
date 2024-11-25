@@ -15,20 +15,25 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: npm
+#      - uses: actions/setup-node@v4
+#        with:
+#          node-version: 22
+#          cache: npm
       - run: |
-          npm install
-          npm run test -- --watch false --browsers ChromeHeadless
-          npm run build
-      - name: Configure AWS credentials
-        id: creds
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          role-to-assume: arn:aws:iam::790387652718:role/ng-ui-dev
-          aws-region: us-east-2
+          echo "GGG=gogogo" >> $GITHUB_ENV
       - run: |
-          aws sts get-caller-identity
-          aws s3 cp ./dist/ng-ui/browser/ s3://ng-ui-dev-790387652718 --recursive
+          echo $MYENV
+        with:
+          MYENV: ${{ env.GGG }}
+#          npm install
+#          npm run test -- --watch false --browsers ChromeHeadless
+#          npm run build
+#      - name: Configure AWS credentials
+#        id: creds
+#        uses: aws-actions/configure-aws-credentials@v4
+#        with:
+#          role-to-assume: arn:aws:iam::790387652718:role/ng-ui-dev
+#          aws-region: us-east-2
+#      - run: |
+#          aws sts get-caller-identity
+#          aws s3 cp ./dist/ng-ui/browser/ s3://ng-ui-dev-790387652718 --recursive
