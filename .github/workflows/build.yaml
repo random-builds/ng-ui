@@ -19,6 +19,6 @@ jobs:
     permissions:
       id-token: write
       contents: read
-    uses: random-builds/gh-workflows/.github/workflows/static_js_s3_site.yaml@main
+    uses: random-builds/gha-workflows/.github/workflows/static_js_s3_site.yaml@main
     with:
       environment: ${{ inputs.environment != null && inputs.environment || 'dev' }}
