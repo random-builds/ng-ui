@@ -1,11 +1,18 @@
 name: build
 
 on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: github action deployment environment
+        type: string
+        default: dev
+        options:
+          - dev
+          - prod
   push:
     branches:
       - main
-  workflow_dispatch:
-
 
 jobs:
   build:
@@ -13,24 +20,14 @@ jobs:
       id-token: write
       contents: read
     runs-on: ubuntu-latest
-    environment: dev
     steps:
-      - uses: actions/checkout@v4
-#      - uses: actions/setup-node@v4
-#        with:
-#          node-version: 22
-#          cache: npm
-      - run: |
-          echo --${{ vars.MYENV }}
-#          npm install
-#          npm run test -- --watch false --browsers ChromeHeadless
-#          npm run build
-#      - name: Configure AWS credentials
-#        id: creds
-#        uses: aws-actions/configure-aws-credentials@v4
-#        with:
-#          role-to-assume: arn:aws:iam::790387652718:role/ng-ui-dev
-#          aws-region: us-east-2
-#      - run: |
-#          aws sts get-caller-identity
-#          aws s3 cp ./dist/ng-ui/browser/ s3://ng-ui-dev-790387652718 --recursive
+      - name: Setup dynamic variables
+        run: |
+          if [[ ${{ github.event_name }} == "push" ]]; then
+            echo ENVIRONMENT=dev > $GITHUB_ENV
+          else
+            echo ENVIRONMENT=${{ inputs.environment }} > $GITHUB_ENV
+          fi
+      - uses: random-builds/gh-workflows/.github/workflows/static_js_s3_site.yaml@main
+        with:
+          environment: ${{ env.ENVIRONMENT }}
