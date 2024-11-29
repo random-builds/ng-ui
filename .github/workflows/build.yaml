@@ -19,15 +19,6 @@ jobs:
     permissions:
       id-token: write
       contents: read
-    runs-on: ubuntu-latest
-    steps:
-      - name: Setup dynamic variables
-        run: |
-          if [[ ${{ github.event_name }} == "push" ]]; then
-            echo ENVIRONMENT=dev > $GITHUB_ENV
-          else
-            echo ENVIRONMENT=${{ inputs.environment }} > $GITHUB_ENV
-          fi
-      - uses: random-builds/gh-workflows/.github/workflows/static_js_s3_site.yaml@main
-        with:
-          environment: ${{ env.ENVIRONMENT }}
+    uses: random-builds/gh-workflows/.github/workflows/static_js_s3_site.yaml@main
+    with:
+      environment: ${{ inputs.environment != null && inputs.environment || 'dev' }}
